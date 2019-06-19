@@ -4,7 +4,6 @@
 # In[ ]:
 
 
-import matplotlib.pyplot as plt
 from scipy import signal
 from scipy.io import wavfile
 import numpy as np
@@ -13,21 +12,6 @@ from glob import iglob
 import pickle
 
 
-def show_spectrogram(fpath):
-
-    sample_rate, samples = wavfile.read(fpath)
-    print(len(samples))
-    print(sample_rate)
-    
-    frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate)
-   
-    plt.pcolormesh(times, frequencies, np.log(spectrogram))
-    plt.imshow(np.log(spectrogram))
-    plt.ylabel('Frequency [Hz]')
-    plt.xlabel('Time [sec]')
-    plt.show()
-    return frequencies, times, spectrogram
-    
 def get_spectrogram_sum(fpath):
     sample_rate, samples = wavfile.read(fpath)
     #print(len(samples))
