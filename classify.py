@@ -11,9 +11,10 @@ from utils import prep_test_file, postprocess_prediction, print_to_csv
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('filepath')
-parser.add_argument('-m', '--model', default='best_model.pkl')
-parser.add_argument('-o', '--out_fpath', default='out.csv')
+parser.add_argument('filepath', help='location of .wav file to process')
+parser.add_argument('-m', '--model', default='best_model.pkl', help='path to model to use (any sklearn model pickled, binary. default `best_model.pkl`')
+parser.add_argument('-o', '--out_fpath', default='out.csv', help='location to save the ouput csv, default `out.csv`')
+
 
 args = parser.parse_args()
 
