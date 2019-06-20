@@ -166,8 +166,11 @@ for name, model in models:
     print(name)
     #kfold = model_selection.KFold(n_splits=10, random_state=seed)
     #cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
-    randperm = np.random.permutation(X_train.shape[0])
-    model.fit(X_train[randperm[:1000]], Y_train[randperm[:1000]])
+    #randperm = np.random.permutation(X_train.shape[0])
+    #model.fit(X_train[randperm[:1000]], Y_train[randperm[:1000]])
+
+    model.fit(X_train, Y_train)
+
     predictions = model.predict(X_val)
     
     #print(predictions.shape)
@@ -190,7 +193,7 @@ for name, model in models:
     plt.show()
     '''
     pd = pickle.dumps(model)
-    print('model size:', sys.getsizeof(pd))
+    #print('model size:', sys.getsizeof(pd))
     
     acc = accuracy_score(Y_val, predictions)
     if acc > top_acc:

@@ -11,14 +11,12 @@ import os, sys, time
 from glob import iglob
 import pickle
 
+NPERSEG = 1000
 
 def get_spectrogram_sum(fpath):
     sample_rate, samples = wavfile.read(fpath)
-    #print(len(samples))
-    #print(sample_rate)
-    frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate)
-    #print(spectrogram.shape)
-    
+
+    frequencies, times, spectrogram = signal.spectrogram(samples, sample_rate, nperseg=NPERSEG)
     return prep_spectrogram(spectrogram)
 
 def convert_dir_to_numpy(dir_id, dir_path):
@@ -32,7 +30,7 @@ def convert_dir_to_numpy(dir_id, dir_path):
     return np.array(spec_sum_list), np.array(lab_list)
 
 def prep_spectrogram(spectrogram):
-    return np.sum(spectrogram, axis=1)
+    return np.mean(spectrogram, axis=1)
 
 
 # In[2]:
@@ -49,7 +47,7 @@ def prep_test_file(fpath, step, length):
     
     while pos < len(samples):
         cutout = samples[pos:pos+length]
-        _, _, spectrogram = signal.spectrogram(cutout, sample_rate)
+        _, _, spectrogram = signal.spectrogram(cutout, sample_rate, nperseg=NPERSEG)
         
         prepped = prep_spectrogram(spectrogram)
         
